@@ -12,12 +12,12 @@ crawldata = {
         },
         'heading': {
             'find-tags': [ # Hierarchy
-                {'type': 'include', 'name': 'h1', 'attrs':{'class': 'headline'}}
+                {'type': 'include', 'name': 'h1', 'attrs': {'class': 'headline'}}
             ]
         },
         'article': {
             'find-tags': [ # Hierarchy
-                {'type': 'include', 'name': 'div', 'attrs':{'class': 'article-content'}},
+                {'type': 'include', 'name': 'div', 'attrs': {'class': 'article-content'}},
                 {'type': 'include', 'name': 'p', 'attrs': {}},
                 {'type': 'excludeParent', 'name': 'div', 'attrs': {'class': 'caption'}},
                 {'type': 'exclude', 'name': 'p', 'attrs': {'class': 'copyright'}},
@@ -39,12 +39,12 @@ crawldata = {
         },
         'heading': {
             'find-tags': [ # Hierarchy
-                {'type': 'include', 'name': 'h1', 'attrs':{'data-testid': 'Heading'}}
+                {'type': 'include', 'name': 'h1', 'attrs': {'data-testid': 'Heading'}}
             ]
         },
         'article': {
             'find-tags': [ # Hierarchy
-                {'type': 'include', 'name': 'div', 'attrs':{'class': 'article-body__container__3ypuX article-body__over-6-para__1Ov64'}},
+                {'type': 'include', 'name': 'div', 'attrs': {'class': 'article-body__container__3ypuX article-body__over-6-para__1Ov64'}},
                 {'type': 'include', 'name': 'p', 'attrs': {}},
                 {'type': 'exclude', 'name': 'p', 'attrs': {'data-testid': 'Body'}},
                 {'type': 'exclude', 'name': 'p', 'attrs': {'data-testid': 'Heading'}},
