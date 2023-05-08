@@ -7,4 +7,4 @@ class ParagraphLengthWordCount(IStatistic):
     def collect(self, title, content):
         paragraphs = content.split('\n')
         parlen = np.array(list(map(lambda p: len(p.split(' ')), paragraphs)))
-        return np.array([min(parlen), np.mean(parlen), max(parlen)])
+        return np.array([np.min(parlen), np.mean(parlen), np.max(parlen)])
