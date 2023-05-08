@@ -1,6 +1,10 @@
 from articlecrawler import crawler
 from articlecrawler.crawldata import crawldata
-from statistics.StatisticList import StatisticList;
+from statistics.StatisticList import StatisticList
+from utils import numSentencesBetween
+
+MIN_SENTENCES = 50
+MAX_SENTENCES = 100
 
 class Collector:
     def __init__(self):
@@ -19,6 +23,8 @@ class Collector:
                 print(f'=== ({idx}/{len(urls)}) {url}')
                 title = crawler.scrapeHeading(url, config)
                 content = crawler.scrapeArticle(url, config)
+                if not numSentencesBetween(content, MIN_SENTENCES, MAX_SENTENCES):
+                    continue
                 self.collectStats(title, content)
             
 
