@@ -68,13 +68,17 @@ def scrapeHeading(url, config):
         page = requests.get(url)
     except Exception as e:
         print(e)
+        return None # TODO: obtain the page only once for heading and article outside this function
     soup = BeautifulSoup(page.text, 'html.parser')
 
     paragraphs = filterTags(h_conf['find-tags'], soup.find())
     # print('\n\n'.join(list(map(lambda p: p.prettify(), paragraphs))))
     paragraphs = map(lambda p: p.get_text(), paragraphs)
     paragraphs = filter(lambda p: p != None, paragraphs)
-    return list(paragraphs)[0]
+    paragraphs = list(paragraphs)
+    if(not paragraphs):
+        return None
+    return paragraphs[0]
 
 def scrapeArticle(url, config):
     a_conf = config['article']
@@ -82,6 +86,7 @@ def scrapeArticle(url, config):
         page = requests.get(url)
     except Exception as e:
         print(e)
+        return None
     soup = BeautifulSoup(page.text, 'html.parser')
 
     paragraphs = filterTags(a_conf['find-tags'], soup.find())

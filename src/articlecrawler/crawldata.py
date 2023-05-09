@@ -51,5 +51,51 @@ crawldata = {
             ],
             'regex-filter': ['.*[a-z]+.*$']
         }
+    },
+    'cnn': {
+        'url-prefix': 'https://edition.cnn.com',
+        'article-links': {
+            'overview-urls': ['/us', '/world', '/politics', '/business', '/health', '/entertainment', '/style', '/travel', '/sports'],
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'a', 'attrs': {'data-link-type': 'article'}}
+            ],
+            'link-prefix': ('/us/', '/world/', '/politics/', '/business/', '/health/', '/entertainment/', '/style/', '/travel/', '/sports/')
+        },
+        'heading': {
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'div', 'attrs': {'class': 'headline__wrapper'}},
+                {'type': 'include', 'name': 'h1', 'attrs': {'data-editable': 'headlineText'}}
+            ]
+        },
+        'article': {
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'div', 'attrs': {'class': 'article__content'}},
+                {'type': 'include', 'name': 'p', 'attrs': {'data-component-name': 'paragraph'}}
+            ],
+            'regex-filter': ['.*[a-z]+.*$']
+        }
+    },
+    'cnn-page': {
+        'url-prefix': 'https://edition.cnn.com',
+        'article-links': {
+            'overview-urls': ['/us', '/world', '/politics', '/business', '/health', '/entertainment', '/style', '/travel', '/sports'],
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'a', 'attrs': {'data-link-type': 'article'}}
+            ],
+            'link-prefix': ('/us/', '/world/', '/politics/', '/business/', '/health/', '/entertainment/', '/style/', '/travel/', '/sports/')
+        },
+        'heading': {
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'div', 'attrs': {'class': 'PageHead__component'}},
+                {'type': 'include', 'name': 'h1', 'attrs': {'class': 'PageHead__title'}}
+            ]
+        },
+        'article': {
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'div', 'attrs': {'class': 'BasicArticle__main'}},
+                {'type': 'include', 'name': 'div', 'attrs': {'class': 'Paragraph__component BasicArticle__paragraph BasicArticle__pad'}}
+            ],
+            'regex-filter': ['.*[a-z]+.*$']
+        }
     }
 }

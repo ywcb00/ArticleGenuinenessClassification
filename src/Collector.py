@@ -51,6 +51,8 @@ class Collector:
                 print(f'=== ({idx+1}/{len(urls)}) {url}')
                 title = crawler.scrapeHeading(url, config)
                 content = crawler.scrapeArticle(url, config)
+                if (not title) or (not content):
+                    continue
                 if (not numSentencesBetween(content, MIN_SENTENCES, MAX_SENTENCES)) or (url in self.collected_urls):
                     continue
                 self.collectStats(url, title, content)
