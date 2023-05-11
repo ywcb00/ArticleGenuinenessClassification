@@ -121,5 +121,52 @@ crawldata = {
             ],
             'regex-filter': ['.*[a-z]+.*$']
         }
+    },
+        'bloomberg': {
+        'url-prefix': 'https://www.bloomberg.com',
+        'article-links': {
+            'overview-urls': ['/markets', '/technology', '/politics', '/world'],
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'header', 'attrs': {'class': 'story-package-module_ _stories'}},
+                {'type': 'include', 'name': 'a', 'attrs': {'class': 'story-package-module_ _story_ _headline-link'}}
+            ],
+            'link-prefix': ('/news/articles/')
+        },
+        'heading': {
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'h1', 'attrs': {'class': 'lede-text-v2_ _hed'}}
+            ]
+        },
+        'article': {
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'div', 'attrs': {'class': 'body-copy-v2 fence-body'}},
+                {'type': 'include', 'name': 'p', 'attrs': {}},
+                {'type': 'excludeParent', 'name': 'div', 'attrs': {'class': 'bb-unsupported-inset'}},
+            ],
+            'regex-filter': ['.*[a-z]+.*$']
+        }
+    },
+    'washingtonpost': {
+        'url-prefix': 'https://www.washingtonpost.com',
+        'article-links': {
+            'overview-urls': ['/politics', '/world', '/business', '/technology', '/sports'],
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'header', 'attrs': {'class': 'headline'}},
+                {'type': 'include', 'name': 'a', 'attrs': {}}
+            ],
+            'link-prefix': ('/2023/05/')
+        },
+        'heading': {
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'h1', 'attrs': {'data-qa': 'headline'}}
+            ]
+        },
+        'article': {
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'article', 'attrs': {'itemprop': 'articleBody'}},
+                {'type': 'include', 'name': 'p', 'attrs': {}},
+            ],
+            'regex-filter': ['.*[a-z]+.*$']
+        }
     }
 }
