@@ -97,21 +97,21 @@ crawldata = {
             ],
             'regex-filter': ['.*[a-z]+.*$']
         }
-        },
-        
-
+    },
     'bbc': {
         'url-prefix': 'https://www.bbc.com',
         'article-links': {
             'overview-urls': ['/news/world'],
             'find-tags': [ 
-                {'type': 'include', 'name': 'a', 'attrs': {'class': 'gs-c-promo-heading gs-o-faux-block-link_ _overlay-link gel-paragon-bold gs-u-mt+ nw-o-link-split_ _anchor'}},
+                {'type': 'include', 'name': 'div', 'attrs': {'id': 'index-page'}},
+                {'type': 'include', 'name': 'div', 'attrs': {'class': 'gel-layout__item'}},
+                {'type': 'include', 'name': 'a', 'attrs': {}},
             ],
             'link-prefix': ('/news/world')
         },
         'heading': {
             'find-tags': [ # Hierarchy
-                {'type': 'include', 'name': 'h1', 'attrs': {'class': 'ssrcss-15xko80-StyleHeading e1fj1fc10'}}
+                {'type': 'include', 'name': 'h1', 'attrs': {'id': 'main-heading'}}
             ]
         },
         'article': {
@@ -121,6 +121,5 @@ crawldata = {
             ],
             'regex-filter': ['.*[a-z]+.*$']
         }
-    }
     }
 }
