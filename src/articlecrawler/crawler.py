@@ -5,6 +5,7 @@ import requests
 from .crawldata import crawldata
 from functools import partial
 import re
+from selenium import webdriver
 
 # Instructed by https://towardsdatascience.com/scraping-1000s-of-news-articles-using-10-simple-steps-d57636a49755
 
@@ -18,10 +19,19 @@ def scrapeArticleLinks(config):
     for o_url in al_conf['overview-urls']:
         url = f'{config["url-prefix"]}{o_url}'
         try:
-            page = requests.get(url)
+            if('driver' in list(al_conf.keys()) and al_conf['driver'] == 'Firefox'):
+                firefox_options = webdriver.FirefoxOptions()
+                firefox_options.add_argument('--headless')
+                driver = webdriver.Firefox(options=firefox_options)
+                driver.get(url)
+                page = driver.page_source
+                driver.close()
+            else:
+                page = requests.get(url)
+                page = page.text
         except Exception as e:
             print(e)
-        soup = BeautifulSoup(page.text, 'html.parser')
+        soup = BeautifulSoup(page, 'html.parser')
         linkcontainer = filterTags(al_conf['find-tags'], soup.find())
         tmp_links = set()
         for lc in linkcontainer:
@@ -65,11 +75,20 @@ def excludeParentTagFilter(excludeDict, tag):
 def scrapeHeading(url, config):
     h_conf = config['heading']
     try:
-        page = requests.get(url)
+        if('driver' in list(h_conf.keys()) and h_conf['driver'] == 'Firefox'):
+            firefox_options = webdriver.FirefoxOptions()
+            firefox_options.add_argument('--headless')
+            driver = webdriver.Firefox(options=firefox_options)
+            driver.get(url)
+            page = driver.page_source
+            driver.close()
+        else:
+            page = requests.get(url)
+            page = page.text
     except Exception as e:
         print(e)
         return None # TODO: obtain the page only once for heading and article outside this function
-    soup = BeautifulSoup(page.text, 'html.parser')
+    soup = BeautifulSoup(page, 'html.parser')
 
     paragraphs = filterTags(h_conf['find-tags'], soup.find())
     # print('\n\n'.join(list(map(lambda p: p.prettify(), paragraphs))))
@@ -83,11 +102,20 @@ def scrapeHeading(url, config):
 def scrapeArticle(url, config):
     a_conf = config['article']
     try:
-        page = requests.get(url)
+        if('driver' in list(a_conf.keys()) and a_conf['driver'] == 'Firefox'):
+            firefox_options = webdriver.FirefoxOptions()
+            firefox_options.add_argument('--headless')
+            driver = webdriver.Firefox(options=firefox_options)
+            driver.get(url)
+            page = driver.page_source
+            driver.close()
+        else:
+            page = requests.get(url)
+            page = page.text
     except Exception as e:
         print(e)
         return None
-    soup = BeautifulSoup(page.text, 'html.parser')
+    soup = BeautifulSoup(page, 'html.parser')
 
     paragraphs = filterTags(a_conf['find-tags'], soup.find())
     # print('\n\n'.join(list(map(lambda p: p.prettify(), paragraphs))))
@@ -102,7 +130,7 @@ def scrapeArticle(url, config):
 
 def main():
     # Example for scraping the links to the articles from one source
-    config = crawldata['foxnews']
+    config = crawldata[list(crawldata.keys())[0]]
     urls = scrapeArticleLinks(config)
 
     # Example for scraping one article

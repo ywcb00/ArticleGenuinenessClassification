@@ -121,5 +121,29 @@ crawldata = {
             ],
             'regex-filter': ['.*[a-z]+.*$']
         }
+    },
+    'nytimes': {
+        'url-prefix': 'https://www.nytimes.com',
+        'article-links': {
+            'overview-urls': ['/section/world', '/section/sports', '/section/science', '/section/us', '/section/politics', '/section/technology'],
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'a', 'attrs': {}},
+            ],
+            'link-prefix': ('/202')
+        },
+        'heading': {
+            'driver': 'Firefox',
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'h1', 'attrs': {'data-testid': 'headline'}}
+            ]
+        },
+        'article': {
+            'driver': 'Firefox',
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'section', 'attrs': {'name': 'articleBody'}},
+                {'type': 'include', 'name': 'p', 'attrs': {}}
+            ],
+            'regex-filter': ['.*[a-z]+.*$']
+        }
     }
 }
