@@ -49,12 +49,14 @@ class Collector:
             print(f'= Found {len(urls)} articles')
             for idx, url in enumerate(urls):
                 print(f'=== ({idx+1}/{len(urls)}) {url}')
+                if(url in self.collected_urls):
+                    continue # no need to collect the same article twice
                 title = crawler.scrapeHeading(url, config)
                 content = crawler.scrapeArticle(url, config)
                 if (not title) or (not content):
-                    continue
-                if (not numSentencesBetween(content, MIN_SENTENCES, MAX_SENTENCES)) or (url in self.collected_urls):
-                    continue
+                    continue # we cannot collect articles without title or content
+                if (not numSentencesBetween(content, MIN_SENTENCES, MAX_SENTENCES)):
+                    continue # article is not between 50 and 100 sentences
                 self.collectStats(url, title, content)
             self.storeCollection()
             

@@ -1,5 +1,7 @@
 from .ParagraphLengthWordCount import ParagraphLengthWordCount
+from .WordFreqProportion import WordFreqProportion
 
 StatisticList = [
-    ParagraphLengthWordCount
+    ParagraphLengthWordCount,
+    WordFreqProportion
 ]
