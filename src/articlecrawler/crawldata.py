@@ -145,5 +145,32 @@ crawldata = {
             ],
             'regex-filter': ['.*[a-z]+.*$']
         }
-    }
+    },
+    'npr': {
+        'url-prefix': 'https://www.npr.org',
+        'article-links': {
+            'overview-urls': ['/sections/world', '/sections/national', '/sections/politics', '/sections/business', '/sections/climate', '/sections/science', '/sections/health'],
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'div', 'attrs': {'class': 'item-info'}},
+                {'type': 'include', 'name': 'a', 'attrs': {}},
+            ],
+            'link-prefix': ('https://www.npr.org/202')
+        },
+        'heading': {
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'article', 'attrs': {'class': 'story'}},
+                {'type': 'include', 'name': 'div', 'attrs': {'class': 'storytitle'}},
+                {'type': 'include', 'name': 'h1', 'attrs': {}}
+            ]
+        },
+        'article': {
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'article', 'attrs': {'class': 'story'}},
+                {'type': 'include', 'name': 'div', 'attrs': {'id': 'storytext'}},
+                {'type': 'include', 'name': 'p', 'attrs': {}},
+                {'type': 'excludeParent', 'name': 'div', 'attrs': {'class': 'caption'}}
+            ],
+            'regex-filter': ['.*[a-z]+.*$']
+        }
+    },
 }

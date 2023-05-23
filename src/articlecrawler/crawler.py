@@ -37,8 +37,9 @@ def scrapeArticleLinks(config):
         for lc in linkcontainer:
             if 'href' in lc.attrs:
                 tmp_links.add(lc['href'].strip())
-        links.update(filter(lambda l: l.startswith(al_conf['link-prefix']), tmp_links))
-    links = set(map(lambda l: f'{config["url-prefix"]}{l}', links))
+        links.update(filter(lambda l: l.startswith(al_conf['link-prefix'])
+            or l.startswith(f'{config["url-prefix"]}{al_conf["link-prefix"]}'), tmp_links))
+    links = set(map(lambda l: l if l.startswith(config["url-prefix"]) else f'{config["url-prefix"]}{l}', links))
     return links
 
 def filterTags(ft_conf, tag):
