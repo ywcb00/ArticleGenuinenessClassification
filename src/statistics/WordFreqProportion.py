@@ -1,6 +1,6 @@
 from .Statistic import IStatistic
 import numpy as np
-from utils import getNumWords, getParagraphs, getWords
+from utils import getNumWords, getWords
 from nltk import FreqDist
 
 # Take the <N_CONSIDER> highest word occurences and scale them
@@ -10,10 +10,7 @@ class WordFreqProportion(IStatistic):
     N_CONSIDER = 7
 
     def collect(self, title, content):
-        paragraphs = getParagraphs(content)
-        words = []
-        for p in paragraphs:
-            words.extend(getWords(p))
+        words = getWords(content)
         fd = FreqDist(words)
 
         num_words = getNumWords(content)
