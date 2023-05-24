@@ -14,7 +14,11 @@ def getNumWords(text):
     return len(getWords(text))
 
 def getSentences(text):
-    return sent_tokenize(text)
+    paragraphs = getParagraphs(text)
+    sentences = []
+    for p in paragraphs:
+        sentences.extend(sent_tokenize(p))
+    return sentences
 
 def numSentencesBetween(text, min, max):
     num_sentences = len(getSentences(text))

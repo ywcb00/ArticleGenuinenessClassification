@@ -2,7 +2,7 @@ from .Statistic import IStatistic
 import numpy as np
 from utils import getNumWords, getParagraphs
 
-# Obtain the min, average, and max word count per paragraph
+# Obtain the min, average, and max word count over all paragraphs
 class ParagraphLengthWordCount(IStatistic):
     SHORT_NAME = "ParWC"
 
