@@ -107,7 +107,7 @@ crawldata = {
                 {'type': 'include', 'name': 'div', 'attrs': {'class': 'gel-layout__item'}},
                 {'type': 'include', 'name': 'a', 'attrs': {}},
             ],
-            'link-prefix': ('/news/world')
+            'link-prefix': ('/news/world-')
         },
         'heading': {
             'find-tags': [ # Hierarchy
