@@ -173,4 +173,34 @@ crawldata = {
             'regex-filter': ['.*[a-z]+.*$']
         }
     },
+    'theguardian': {
+        'url-prefix': 'https://theguardian.com',
+        'article-links': {
+            'overview-urls': ['/world', '/uk-news', '/environment', '/science', '/global-development', '/football', '/technology', '/business'],
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'main', 'attrs': {'id': 'maincontent'}},
+                {'type': 'include', 'name': 'a', 'attrs': {}},
+            ],
+            'link-prefix': ('/world/', '/uk-news/', '/environment/', '/science/', '/global-development/', '/football/', '/technology/', '/business/')
+        },
+        'heading': {
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'article', 'attrs': {}},
+                {'type': 'include', 'name': 'div', 'attrs': {'data-gu-name': 'headline'}},
+                {'type': 'include', 'name': 'h1', 'attrs': {}}
+            ]
+        },
+        'article': {
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'article', 'attrs': {}},
+                {'type': 'include', 'name': 'div', 'attrs': {'data-gu-name': 'body'}},
+                {'type': 'include', 'name': 'div', 'attrs': {'id': 'maincontent'}},
+                {'type': 'include', 'name': 'p', 'attrs': {}},
+                {'type': 'excludeParent', 'name': 'ul', 'attrs': {}},
+                {'type': 'excludeParent', 'name': 'div', 'attrs': {'class': 'ad-slot-container '}},
+                {'type': 'excludeParent', 'name': 'figure', 'attrs': {}}
+            ],
+            'regex-filter': ['.*[a-z]+.*$']
+        }
+    },
 }
