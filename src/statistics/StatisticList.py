@@ -1,3 +1,4 @@
+from .NamedEntityRecognition import NamedEntityRecognition
 from .ParagraphLengthWordCount import ParagraphLengthWordCount
 from .SentenceWordCount import SentenceWordCount
 from .SentimentAnalysisScore import SentimentAnalysisScore
@@ -6,6 +7,7 @@ from .WordFreqProportion import WordFreqProportion
 from .ZipfsLawDeviation import ZipfsLawDeviation
 
 StatisticList = [
+    NamedEntityRecognition,
     ParagraphLengthWordCount,
     SentenceWordCount,
     SentimentAnalysisScore,
