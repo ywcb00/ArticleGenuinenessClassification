@@ -20,8 +20,11 @@ def getSentences(text):
         sentences.extend(sent_tokenize(p))
     return sentences
 
+def getNumSentences(text):
+    return len(getSentences(text))
+
 def numSentencesBetween(text, min, max):
-    num_sentences = len(getSentences(text))
+    num_sentences = getNumSentences(text)
     if(num_sentences >= min and num_sentences <= max):
         return True
     return False
