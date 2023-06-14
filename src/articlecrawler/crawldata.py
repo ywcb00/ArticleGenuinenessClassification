@@ -203,6 +203,7 @@ crawldata = {
             'regex-filter': ['.*[a-z]+.*$']
         }
     },
+   #the sun 
     'thesun': {
         'url-prefix': 'https://www.thesun.co.uk',
         'article-links': {
