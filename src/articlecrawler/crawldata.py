@@ -203,4 +203,28 @@ crawldata = {
             'regex-filter': ['.*[a-z]+.*$']
         }
     },
+    'thesun': {
+        'url-prefix': 'https://www.thesun.co.uk',
+        'article-links': {
+            'overview-urls': ['/tech', '/health', '/news', '/money', '/sport'],
+            'find-tags': [
+                {'type': 'include', 'name': 'a', 'attrs': {'class': 't-p-color__hover'}}
+            ],
+            'link-prefix': ('https://www.thesun.co.uk/tech/', 'https://www.thesun.co.uk/health/', 'https://www.thesun.co.uk/news/', 'https://www.thesun.co.uk/money/', 'https://www.thesun.co.uk/sport/')
+        },
+        'heading': {
+            'find-tags': [
+                {'type': 'include', 'name': 'h1', 'attrs': {'class': 'article__headline'}}
+            ]
+        },
+        'article': {
+            'find-tags': [
+                {'type': 'include', 'name': 'div', 'attrs': {'class': 'article__content'}},
+                {'type': 'include', 'name': 'p', 'attrs': {}}
+            ],
+            'regex-filter': ['.*[a-z]+.*$']
+        }
+    }
+    
+
 }
