@@ -4,6 +4,7 @@ from utils import getNumSentences, getParagraphs, getSentences, getWords
 import nltk
 nltk.download('universal_tagset')
 
+# Count the common occurences of words from the title with the content
 class TitleContentCommonality(IStatistic):
     SHORT_NAME = "TCCom"
 
@@ -23,7 +24,7 @@ class TitleContentCommonality(IStatistic):
         # filter relevant pos tags
         pos = filter(lambda elem: elem[1] in self.RELEVANT_POS_TAGS, pos)
         words = list(map(lambda elem: elem[0].lower(), pos))
-        return words        
+        return words
 
     def collect(self, title, content):
         tccom_stats = np.array([])
