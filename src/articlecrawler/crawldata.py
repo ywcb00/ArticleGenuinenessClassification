@@ -225,7 +225,28 @@ crawldata = {
             ],
             'regex-filter': ['.*[a-z]+.*$']
         }
+    },
+    'dailymail': {
+    'url-prefix': 'https://www.dailymail.co.uk',
+    'article-links': {
+        'overview-urls': ['/sport', '/royals', '/news', '/femail', '/health'],
+        'find-tags': [
+            {'type': 'include', 'name': 'a', 'attrs': {'href': lambda value: value and value.endswith('.html')}},
+            {'type': 'include', 'name': 'h2', 'attrs': {'class': 'linkro-darkred'}}
+        ],
+        'link-prefix': ('https://www.dailymail.co.uk', 'https://www.dailymail.co.uk', 'https://www.dailymail.co.uk', 'https://www.dailymail.co.uk', 'https://www.dailymail.co.uk')
+    },
+    'heading': {
+        'find-tags': [
+            {'type': 'include', 'name': 'h2', 'attrs': {'class': 'linkro-darkred'}}
+        ]
+    },
+    'article': {
+        'find-tags': [
+            {'type': 'include', 'name': 'div', 'attrs': {'class': 'articletext-holder'}},
+            {'type': 'include', 'name': 'p', 'attrs': {}}
+        ],
+        'regex-filter': ['.*[a-z]+.*$']
     }
-    
-
+}
 }
