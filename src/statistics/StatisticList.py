@@ -1,4 +1,8 @@
 from .NamedEntityRecognition import NamedEntityRecognition
+from .NoParNamedEntityRecognition import NoParNamedEntityRecognition
+from .NoParPartOfSpeechTags import NoParPartOfSpeechTags
+from .NoParSentimentAnalysisScore import NoParSentimentAnalysisScore
+from .NoParTitleContentCommonality import NoParTitleContentCommonality
 from .ParagraphLengthWordCount import ParagraphLengthWordCount
 from .PartOfSpeechTags import PartOfSpeechTags
 from .SentenceWordCount import SentenceWordCount
@@ -10,6 +14,10 @@ from .ZipfsLawDeviation import ZipfsLawDeviation
 
 StatisticList = [
     NamedEntityRecognition,
+    NoParNamedEntityRecognition,
+    NoParPartOfSpeechTags,
+    NoParSentimentAnalysisScore,
+    NoParTitleContentCommonality,
     ParagraphLengthWordCount,
     PartOfSpeechTags,
     SentenceWordCount,
