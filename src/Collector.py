@@ -3,6 +3,7 @@ from articlecrawler.crawldata import crawldata
 from statistics.StatisticList import StatisticList
 from utils import numSentencesBetween
 import pandas as pd
+import os
 
 MIN_SENTENCES = 50
 MAX_SENTENCES = 100
@@ -89,3 +90,34 @@ class Collector:
                     continue # article is not between 50 and 100 sentences
                 self.updateStats(idx, url, title, content)
             self.storeCollection()
+
+    def collectTestStats(self, url, title, content):
+        stat_row = {'url': url, 'title': title}
+        for stat in self.statlist:
+            stat_arr = stat.collect(title, content)
+            stat_dict = self.getStatisticalValuesDict(stat_arr, stat.SHORT_NAME)
+            print("=====", stat_dict)
+            stat_row = {**stat_row, **stat_dict}
+        return stat_row
+
+    def testRoutine(self):
+        TESTDIR = './../data/test/'
+        for dirname in os.listdir(TESTDIR):
+            if(os.path.isfile(os.path.join(TESTDIR, dirname, 'test_stats.csv'))):
+                continue
+            print("=", dirname)
+            test_stats = pd.DataFrame()
+            for fname in os.listdir(os.path.join(TESTDIR, dirname)):
+                if not fname.endswith(".txt"):
+                    continue
+                filepath = os.path.join(TESTDIR, dirname, fname)
+                print("===", filepath)
+                with open(filepath, 'r') as article:
+                    url = fname
+                    title = article.readline() # first line is the title
+                    content = article.read() # remaining text is content
+                    stat_row = self.collectTestStats(url, title, content)
+                    # add the stats to the data frame
+                    row_df = pd.DataFrame([stat_row])
+                    test_stats = pd.concat([test_stats, row_df])
+            test_stats.to_csv(os.path.join(TESTDIR, dirname, 'test_stats.csv'), index=False)

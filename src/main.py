@@ -8,7 +8,7 @@ def main(argv):
     collector = Collector()
 
     try:
-        opts, args = getopt.getopt(argv[1:], "hu:", ["help", "update"])
+        opts, args = getopt.getopt(argv[1:], "hu:t:", ["help", "update", "test"])
     except getopt.GetoptError:
         print("Wrong usage.")
         print("Usage:", argv[0], "[--update]")
@@ -16,6 +16,9 @@ def main(argv):
     for opt, arg in opts:
         if opt in ("-u", "--update"):
             collector.updateRoutine()
+            sys.exit(0)
+        elif opt in ("-t", "--test"):
+            collector.testRoutine()
             sys.exit(0)
 
     collector.collectionRoutine()

@@ -2,7 +2,7 @@
 
 from bs4 import BeautifulSoup
 import requests
-from crawldata import crawldata
+from .crawldata import crawldata
 from functools import partial
 import re
 from selenium import webdriver
