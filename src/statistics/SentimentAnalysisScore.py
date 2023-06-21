@@ -12,9 +12,16 @@ class SentimentAnalysisScore(IStatistic):
     sentiment_pipeline = pipeline("sentiment-analysis")
 
     def getPositiveSentimentScore(self, text_arr):
-        scores = self.sentiment_pipeline(text_arr)
-        scores = map(lambda elem: (1-elem['score']) if elem['label'] == 'NEGATIVE'
-            else elem['score'], scores)
+        try:
+            scores = self.sentiment_pipeline(text_arr)
+            scores = map(lambda elem: (1-elem['score']) if elem['label'] == 'NEGATIVE'
+                else elem['score'], scores)
+        except:
+            if(type(text_arr) is list):
+                scores = [np.nan for ix in text_arr]
+            else:
+                scores = [np.nan]
+
         return np.array(list(scores))
 
     def collect(self, title, content):
@@ -24,7 +31,7 @@ class SentimentAnalysisScore(IStatistic):
         paragraphs = getParagraphs(content)
         # NOTE: we cannot process text with more than 512 tokens with the sentiment pipeline
         #   Hence, we simply set the paragraph to nan
-        paragraphs = list(map(lambda p: np.nan if getNumWords(p) > 500 else p ,paragraphs))
+        paragraphs = list(map(lambda p: "" if getNumWords(p) > 500 else p ,paragraphs))
         sentiment_par = self.getPositiveSentimentScore(paragraphs)
         sentiment_stats = np.append(sentiment_stats, np.min(sentiment_par))
         sentiment_stats = np.append(sentiment_stats, np.mean(sentiment_par))
@@ -46,8 +53,11 @@ class SentimentAnalysisScore(IStatistic):
         #   sentiment scores of the paragraphs and the sentiment scores of their sentences
         sentiment_pardiffsentence = [(self.getPositiveSentimentScore(par) - np.mean(self.getPositiveSentimentScore(getSentences(par))))**2 for par in paragraphs]
         sentiment_pardiffsentence = np.array(sentiment_pardiffsentence)
-        sentiment_stats = np.append(sentiment_stats, np.min(sentiment_pardiffsentence))
-        sentiment_stats = np.append(sentiment_stats, np.mean(sentiment_pardiffsentence))
-        sentiment_stats = np.append(sentiment_stats, np.max(sentiment_pardiffsentence))
+        if(sentiment_pardiffsentence is not None):
+            sentiment_stats = np.append(sentiment_stats, np.min(sentiment_pardiffsentence))
+            sentiment_stats = np.append(sentiment_stats, np.mean(sentiment_pardiffsentence))
+            sentiment_stats = np.append(sentiment_stats, np.max(sentiment_pardiffsentence))
+        else:
+            sentiment_stats = np.append(sentiment_stats, [np.nan, np.nan, np.nan])
 
         return sentiment_stats

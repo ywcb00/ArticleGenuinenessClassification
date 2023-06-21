@@ -12,9 +12,16 @@ class NoParSentimentAnalysisScore(IStatistic):
     sentiment_pipeline = pipeline("sentiment-analysis")
 
     def getPositiveSentimentScore(self, text_arr):
-        scores = self.sentiment_pipeline(text_arr)
-        scores = map(lambda elem: (1-elem['score']) if elem['label'] == 'NEGATIVE'
-            else elem['score'], scores)
+        try:
+            scores = self.sentiment_pipeline(text_arr)
+            scores = map(lambda elem: (1-elem['score']) if elem['label'] == 'NEGATIVE'
+                else elem['score'], scores)
+        except:
+            if(type(text_arr) is list):
+                scores = [np.nan for ix in text_arr]
+            else:
+                scores = [np.nan]
+
         return np.array(list(scores))
 
     def collect(self, title, content):
