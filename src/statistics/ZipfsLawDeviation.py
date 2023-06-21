@@ -22,7 +22,7 @@ class ZipfsLawDeviation(IStatistic):
         freq = freq[::-1]
 
         deviations = []
-        for counter in range(self.N_CONSIDER):
+        for counter in range(min(self.N_CONSIDER, (len(freq)-1))):
             zipf_diff = freq[counter] - (((counter+2)/(counter+1)) * freq[counter + 1])
             deviations.append(zipf_diff / freq[counter])
 
