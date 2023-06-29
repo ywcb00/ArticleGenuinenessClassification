@@ -34,7 +34,8 @@ for(sn in statnames) {
   stat_densities[[sn]] = density(cs[[sn]], kernel="cosine", n=1024, cut=30, na.rm=TRUE);
 
   xlim = range(stat_densities[[sn]]$x, na.rm=TRUE) + 0.3*c(-1, 1)*sum(c(-1, 1)*range(stat_densities[[sn]]$x, na.rm=TRUE));
-  hist(cs[[sn]], freq=FALSE, breaks=30, xlim=xlim, main=sn, xlab=sn);
+  par(mai=c(0.8, 1, 0.1, 0.1));
+  hist(cs[[sn]], freq=FALSE, breaks=30, main=NULL, xlim=xlim, xlab=sn);
   lines(stat_densities[[sn]]$x, stat_densities[[sn]]$y, col='red');
 
   score_func = getScoreFunction(stat_densities[[sn]]);
