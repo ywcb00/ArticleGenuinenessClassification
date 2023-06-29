@@ -203,50 +203,134 @@ crawldata = {
             'regex-filter': ['.*[a-z]+.*$']
         }
     },
-   #the sun 
-    'thesun': {
-        'url-prefix': 'https://www.thesun.co.uk',
+# === Begin of evaluation section
+    'nbcnews': {
+        'url-prefix': 'https://www.nbcnews.com',
         'article-links': {
-            'overview-urls': ['/tech', '/health', '/news', '/money', '/sport'],
-            'find-tags': [
-                {'type': 'include', 'name': 'a', 'attrs': {'class': 't-p-color__hover'}}
+            'overview-urls': ['/us-news', '/politics', '/world', '/opinion', '/tech-media', '/health'],
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'div', 'attrs': {'class': 'layout-grid-item'}},
+                {'type': 'include', 'name': 'h2', 'attrs': {}},
+                {'type': 'include', 'name': 'a', 'attrs': {}}
             ],
-            'link-prefix': ('https://www.thesun.co.uk/tech/', 'https://www.thesun.co.uk/health/', 'https://www.thesun.co.uk/news/', 'https://www.thesun.co.uk/money/', 'https://www.thesun.co.uk/sport/')
+            'link-prefix': ('https://www.nbcnews.com/us-news', 'https://www.nbcnews.com/politics', 'https://www.nbcnews.com/world', 'https://www.nbcnews.com/opinion', 'https://www.nbcnews.com/tech-media', 'https://www.nbcnews.com/health')
         },
         'heading': {
-            'find-tags': [
-                {'type': 'include', 'name': 'h1', 'attrs': {'class': 'article__headline'}}
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'article', 'attrs': {}},
+                {'type': 'include', 'name': 'header', 'attrs': {}},
+                {'type': 'include', 'name': 'h1', 'attrs': {}}
             ]
         },
         'article': {
-            'find-tags': [
-                {'type': 'include', 'name': 'div', 'attrs': {'class': 'article__content'}},
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'article', 'attrs': {}},
+                {'type': 'include', 'name': 'div', 'attrs': {'class': 'article-body'}},
                 {'type': 'include', 'name': 'p', 'attrs': {}}
             ],
             'regex-filter': ['.*[a-z]+.*$']
         }
     },
-    'dailymail': {
-    'url-prefix': 'https://www.dailymail.co.uk',
-    'article-links': {
-        'overview-urls': ['/sport', '/royals', '/news', '/femail', '/health'],
-        'find-tags': [
-            {'type': 'include', 'name': 'a', 'attrs': {'href': lambda value: value and value.endswith('.html')}},
-            {'type': 'include', 'name': 'h2', 'attrs': {'class': 'linkro-darkred'}}
-        ],
-        'link-prefix': ('https://www.dailymail.co.uk', 'https://www.dailymail.co.uk', 'https://www.dailymail.co.uk', 'https://www.dailymail.co.uk', 'https://www.dailymail.co.uk')
+    'sciencedaily': {
+        'url-prefix': 'https://www.sciencedaily.com',
+        'article-links': {
+            'driver': 'Firefox',
+            'overview-urls': ['/news/health_medicine', '/news/mind_brain', '/news/living_well', '/news/matter_energy', '/news/space_time', '/news/computers_math', '/news/plants_animals', '/news/earth_climate', '/news/fossil_ruins', '/news/science_society', '/news/business_industry', '/news/education_learning'],
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'div', 'attrs': {'id': 'contents'}},
+                {'type': 'include', 'name': 'a', 'attrs': {}}
+            ],
+            'link-prefix': ('/releases/202')
+        },
+        'heading': {
+            'driver': 'Firefox',
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'div', 'attrs': {'id': 'contents'}},
+                {'type': 'include', 'name': 'h1', 'attrs': {'id': 'headline'}}
+            ]
+        },
+        'article': {
+            'driver': 'Firefox',
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'div', 'attrs': {'id': 'contents'}},
+                {'type': 'include', 'name': 'div', 'attrs': {'id': 'story_text'}},
+                {'type': 'include', 'name': 'p', 'attrs': {}}
+            ],
+            'regex-filter': ['.*[a-z]+.*$']
+        }
     },
-    'heading': {
-        'find-tags': [
-            {'type': 'include', 'name': 'h2', 'attrs': {'class': 'linkro-darkred'}}
-        ]
+    'pcmag': {
+        'url-prefix': 'https://uk.pcmag.com',
+        'article-links': {
+            'overview-urls': ['/article/news'],
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'article', 'attrs': {'class': 'articlewrapper'}},
+                {'type': 'include', 'name': 'div', 'attrs': {'class': 'articlecontainer'}},
+                {'type': 'include', 'name': 'a', 'attrs': {}}
+            ],
+            'link-prefix': ('/')
+        },
+        'heading': {
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'div', 'attrs': {'class': 'hero'}},
+                {'type': 'include', 'name': 'hgroup', 'attrs': {}},
+                {'type': 'include', 'name': 'h1', 'attrs': {'id': 'id_title'}}
+            ]
+        },
+        'article': {
+            'driver': 'Firefox',
+            'find-tags': [ # Hierarchy
+                {'type': 'include', 'name': 'div', 'attrs': {'id': 'content'}},
+                {'type': 'include', 'name': 'article', 'attrs': {'class': 'article'}},
+                {'type': 'include', 'name': 'p', 'attrs': {}}
+            ],
+            'regex-filter': ['.*[a-z]+.*$']
+        }
     },
-    'article': {
-        'find-tags': [
-            {'type': 'include', 'name': 'div', 'attrs': {'class': 'articletext-holder'}},
-            {'type': 'include', 'name': 'p', 'attrs': {}}
-        ],
-        'regex-filter': ['.*[a-z]+.*$']
-    }
-}
+#    #the sun 
+#     'thesun': {
+#         'url-prefix': 'https://www.thesun.co.uk',
+#         'article-links': {
+#             'overview-urls': ['/tech', '/health', '/news', '/money', '/sport'],
+#             'find-tags': [
+#                 {'type': 'include', 'name': 'a', 'attrs': {'class': 't-p-color__hover'}}
+#             ],
+#             'link-prefix': ('https://www.thesun.co.uk/tech/', 'https://www.thesun.co.uk/health/', 'https://www.thesun.co.uk/news/', 'https://www.thesun.co.uk/money/', 'https://www.thesun.co.uk/sport/')
+#         },
+#         'heading': {
+#             'find-tags': [
+#                 {'type': 'include', 'name': 'h1', 'attrs': {'class': 'article__headline'}}
+#             ]
+#         },
+#         'article': {
+#             'find-tags': [
+#                 {'type': 'include', 'name': 'div', 'attrs': {'class': 'article__content'}},
+#                 {'type': 'include', 'name': 'p', 'attrs': {}}
+#             ],
+#             'regex-filter': ['.*[a-z]+.*$']
+#         }
+#     },
+#     'dailymail': {
+#     'url-prefix': 'https://www.dailymail.co.uk',
+#     'article-links': {
+#         'overview-urls': ['/sport', '/royals', '/news', '/femail', '/health'],
+#         'find-tags': [
+#             {'type': 'include', 'name': 'a', 'attrs': {'href': lambda value: value and value.endswith('.html')}},
+#             {'type': 'include', 'name': 'h2', 'attrs': {'class': 'linkro-darkred'}}
+#         ],
+#         'link-prefix': ('https://www.dailymail.co.uk', 'https://www.dailymail.co.uk', 'https://www.dailymail.co.uk', 'https://www.dailymail.co.uk', 'https://www.dailymail.co.uk')
+#     },
+#     'heading': {
+#         'find-tags': [
+#             {'type': 'include', 'name': 'h2', 'attrs': {'class': 'linkro-darkred'}}
+#         ]
+#     },
+#     'article': {
+#         'find-tags': [
+#             {'type': 'include', 'name': 'div', 'attrs': {'class': 'articletext-holder'}},
+#             {'type': 'include', 'name': 'p', 'attrs': {}}
+#         ],
+#         'regex-filter': ['.*[a-z]+.*$']
+#     }
+# }
 }
